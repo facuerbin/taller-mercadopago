@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', { title: 'Confirmar Compra' }) %>
+<body>
+	<!-- Header -->
+	<%- include('partials/headerNavbar') %>
+	<!-- /Header -->
+
+	<!-- product detail -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Confirmar Compra: <%= global.id%></h2>
+			</div>
+		</div>
+		<div class="mercadopago-button-container">
+            <form target="_blank" action="<%= global.init_point%>" method="POST">
+                <button class="mercadopago-button">
+                    Iniciar Pago
+                </button>
+            </form>
+        </div>
+	</div>
+	<!-- /product detail -->
+
+	<!-- footer -->
+	<%- include('partials/footer') %>
+	<!-- /footer -->
+
+</body>	
+</html>
