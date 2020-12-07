@@ -1,5 +1,5 @@
 const mercadopago = require("mercadopago");
-
+const host = process.env.HOST;
 mercadopago.configure({
   access_token: process.env.ACCESS_TOKEN,
   integrator_id: process.env.INTEGRATOR_ID,
@@ -12,21 +12,66 @@ module.exports = {
   detail: (req, res) => {
     return res.render("detail", { ...req.query });
   },
+  paymentStatus: (req, res) => {
+    if (req.query.status.includes("success")) {
+      return res.render("success");
+    }
+
+    if (req.query.status.includes("pending")) {
+      return res.render("pending");
+    }
+
+    if (req.query.status.includes("failure")) {
+      return res.render("failure");
+    }
+
+    return res.status(404).end();
+  },
+  webhooks: (req, res) => {
+    console.log("WEBHOOK: ", req.body);
+
+    res.status(200).end("OK");
+  },
   purchase: (req, res) => {
     // Creo un objeto de preferencia
     let preference = {
+      payer: {
+        name: "Lalo",
+        surname: "Landa",
+        email: "test_user_63274575@testuser.com",
+        phone: {
+          area_code: "11",
+          number: 22223333,
+        },
+        address: {
+          zip_code: "1111",
+          street_name: "False",
+          street_number: 123,
+        },
+      },
+      payment_methods: {
+        excluded_payment_methods: [{ id: "amex" }],
+        excluded_payment_types: [{ id: "atm" }],
+        installments: 6,
+      },
+      notification_urls: host + "webhooks",
+      auto_return: "approved",
       items: [
         {
+          id: "1234",
           title: "Mi producto",
-          unit_price: 100,
+          description: "​Dispositivo móvil de Tienda e-commerce​",
+          picture_url:
+            "https://facuerbin-mercado-pago.herokuapp.com/images/products/disruptor.jpg",
+          unit_price: 9000,
           quantity: 1,
         },
-        {
-            title: "Mi otro producto",
-            unit_price: 140,
-            quantity: 3,
-          },
       ],
+      back_urls: {
+        success: host + "payment?status=success",
+        pending: host + "payment?status=pending",
+        failure: host + "payment?status=failure",
+      },
     };
 
     mercadopago.preferences
@@ -35,7 +80,7 @@ module.exports = {
         // Este valor reemplazará el string "<%= global.id %>" en tu HTML
         global.id = response.body.id;
         global.init_point = response.body.init_point;
-        res.render('confirm');
+        res.render("confirm");
       })
       .catch(function (error) {
         console.log(error);

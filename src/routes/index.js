@@ -9,6 +9,12 @@ router.get('/', indexController.home);
 /* GET detail page */
 router.get('/detail', indexController.detail);
 
+/* GET payment status page */
+router.get('/payment', indexController.paymentStatus);
+
+/* GET webhooks */
+router.get('/webhooks', indexController.webhooks);
+
 /* POST purchase */
 router.post('/purchase', indexController.purchase);
 
