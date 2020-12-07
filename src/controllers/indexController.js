@@ -72,6 +72,7 @@ module.exports = {
         pending: host + "payment?status=pending",
         failure: host + "payment?status=failure",
       },
+      external_reference: 'facuerbin@gmail.com'
     };
 
     mercadopago.preferences
