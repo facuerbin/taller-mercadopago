@@ -14,7 +14,11 @@ module.exports = {
   },
   paymentStatus: (req, res) => {
     if (req.query.status.includes("success")) {
-      return res.render("success");
+      return res.render("success", {
+        payment_type: req.query.payment_type,
+        external_reference: req.query.external_reference,
+        collection_id: req.query.collection_id
+      });
     }
 
     if (req.query.status.includes("pending")) {
@@ -50,8 +54,16 @@ module.exports = {
         },
       },
       payment_methods: {
-        excluded_payment_methods: [{ id: "amex" }],
-        excluded_payment_types: [{ id: "atm" }],
+        excluded_payment_methods: [
+          { 
+            id: "amex" 
+          }
+        ],
+        excluded_payment_types: [
+          { 
+            id: "atm" 
+          }
+        ],
         installments: 6,
       },
       notification_url: host + "webhooks",
@@ -59,11 +71,11 @@ module.exports = {
       items: [
         {
           id: "1234",
-          title: "Mi producto",
+          title: req.query.title,
           description: "​Dispositivo móvil de Tienda e-commerce​",
           picture_url:
-            "https://facuerbin-mercado-pago.herokuapp.com/images/products/disruptor.jpg",
-          unit_price: 9000,
+            "https://facuerbin-mercado-pago.herokuapp.com/images/products/" + req.query.img,
+          unit_price: Number(req.query.price),
           quantity: 1,
         },
       ],

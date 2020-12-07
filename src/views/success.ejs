@@ -11,7 +11,19 @@
 	<div class="container products-wrapper">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="products-title">Success Su Pago fue exitoso</h2>
+                <h2 class="products-title">Success Su Pago fue exitoso</h2>
+                <ul>
+                    <li>
+                        Tipo de PAgo: <%= payment_type%>>
+                    </li>
+                    <li>
+                        Referencia Externa: <%= external_reference%>>
+                    </li>
+                    <li>
+                        Id de Pago: <%= collection_id%>>  
+                    </li>
+                    
+                </ul>
 			</div>
 		</div>
 	</div>
