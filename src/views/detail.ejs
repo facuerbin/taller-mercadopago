@@ -40,7 +40,7 @@
 						</ul>
 
 						<div class="mercadopago-button-container">
-							<form action="/purchase" method="POST">
+							<form action="/purchase?title=<%= title%>&img=<%= img%>&price=<%= price%>" method="POST">
 								<button class="mercadopago-button">
 									Pagar la compra
 								</button>

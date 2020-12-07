@@ -56,8 +56,8 @@ module.exports = {
       payment_methods: {
         excluded_payment_methods: [
           { 
-            id: "amex" 
-          }
+            id: "amex",
+          },
         ],
         excluded_payment_types: [
           { 
@@ -86,6 +86,8 @@ module.exports = {
       },
       external_reference: 'facuerbin@gmail.com'
     };
+    console.log(req.query)
+    console.log(preference.items[0].picture_url)
 
     mercadopago.preferences
       .create(preference)
