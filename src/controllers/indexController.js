@@ -54,7 +54,7 @@ module.exports = {
         excluded_payment_types: [{ id: "atm" }],
         installments: 6,
       },
-      notification_urls: host + "webhooks",
+      notification_url: host + "webhooks",
       auto_return: "approved",
       items: [
         {
